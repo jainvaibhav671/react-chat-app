@@ -1,0 +1,90 @@
+.login,
+.register {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login form,
+.register form {
+  width: 40%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #00000076;
+  border-radius: 2rem;
+  padding: 3rem 5rem;
+}
+
+.login span,
+.register span {
+  color: white;
+  text-transform: uppercase;
+}
+
+.login span a,
+.register span a {
+  text-transform: none;
+  color: #4e0eff;
+  font-weight: bold;
+}
+
+input {
+  padding: 1rem;
+  background-color: transparent;
+  border: 0.1rem solid transparent;
+  border-radius: 0.4rem;
+  color: white;
+  font-size: 1rem;
+}
+
+input:active {
+  border: none;
+}
+
+input:hover {
+  border-bottom: 0.1rem solid;
+}
+
+input:focus {
+  border-bottom: 0.1rem solid;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 3em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
