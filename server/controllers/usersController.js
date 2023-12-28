@@ -30,7 +30,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body();
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
       return res.json({ msg: "Email not registered", status: false });
@@ -50,4 +50,14 @@ const login = async (req, res, next) => {
   }
 }
 
-module.exports = { register, login }
+const all_users = async (req, res, next) => {
+  try {
+
+    const users = await User.find({ _id: { $ne: req.params.id } }).select(["email", "username", "_id"])
+    return res.json(users)
+  } catch (ex) {
+    next(ex)
+  }
+}
+
+module.exports = { register, login, all_users }

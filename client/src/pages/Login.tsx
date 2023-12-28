@@ -24,7 +24,7 @@ export default function Login() {
 
   useEffect(() => {
     if (localStorage.getItem("chat-app-user")) {
-      navigate("/")
+      navigate("/ ")
     }
   }, [navigate])
 
@@ -42,6 +42,7 @@ export default function Login() {
     e.preventDefault()
     const { password, email } = values
     if (handleValidation()) {
+      console.log(loginRoute)
       const { data } = await axios.post(loginRoute, {
         email,
         password,
