@@ -7,3 +7,4 @@ server: Contains ExpressJS Backend code
 
 - [x] MongoDB Integration
 - [x] User Authentication
+- [x] Realtime Message Updates
