@@ -1,30 +1,29 @@
-import axios from "axios"
-import { useEffect, useRef, useState } from "react"
-import { Socket } from "socket.io-client"
-import styled from "styled-components"
-import { getMessagesRoute, sendMessageRoute } from "../lib/api_routes"
-import { Message } from "../types/Message.types"
-import { User } from "../types/User.types"
-import Avatar from "./Avatar"
-import ChatInput from "./ChatInput"
-import Logout from "./Logout"
-import Messages from "./Messages"
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { Socket } from 'socket.io-client'
+import styled from 'styled-components'
+import { getMessagesRoute, sendMessageRoute } from '../lib/api_routes'
+import { Message } from '../types/Message.types'
+import { User } from '../types/User.types'
+import Avatar from './Avatar'
+import ChatInput from './ChatInput'
+import Logout from './Logout'
+import Messages from './Messages'
 
 export default function ChatContainer({
   currentChat,
   currentUser,
-  socket
+  socket,
 }: {
   currentChat: User
   currentUser: User
   socket: Socket | undefined
 }) {
-
   const [msgs, setMsgs] = useState<Message[]>([])
   const [arrivalMessage, setArrivalMessage] = useState<Message | null>(null)
 
   useEffect(() => {
-    socket?.on("msg-receive", (msg) => {
+    socket?.on('msg-receive', (msg) => {
       console.log(msg)
       setArrivalMessage({ fromSelf: false, message: msg })
     })
@@ -38,7 +37,7 @@ export default function ChatContainer({
     async function func() {
       const res = await axios.post(getMessagesRoute, {
         from: currentUser._id,
-        to: currentChat._id
+        to: currentChat._id,
       })
       setMsgs(res.data)
     }
@@ -49,13 +48,13 @@ export default function ChatContainer({
     await axios.post(sendMessageRoute, {
       from: currentUser._id,
       to: currentChat._id,
-      message: msg
+      message: msg,
     })
 
-    socket?.emit("send-msg", {
+    socket?.emit('send-msg', {
       from: currentUser._id,
       to: currentChat._id,
-      message: msg
+      message: msg,
     })
 
     const messages = [...msgs]
@@ -63,20 +62,22 @@ export default function ChatContainer({
     setMsgs(messages)
   }
 
-  return <Container>
-    <div className="chat-header">
-      <div className="user-details">
-        <Avatar name={currentChat.username} />
-        <div className="username">
-          <h3>{currentChat.username}</h3>
+  return (
+    <Container>
+      <div className="chat-header">
+        <div className="user-details">
+          <Avatar name={currentChat.username} />
+          <div className="username">
+            <h3>{currentChat.username}</h3>
+          </div>
         </div>
+        <Logout />
       </div>
-      <Logout />
-    </div>
 
-    <Messages messages={msgs} />
-    <ChatInput handleSendMsg={handleSendMsg} />
-  </Container>
+      <Messages messages={msgs} />
+      <ChatInput handleSendMsg={handleSendMsg} />
+    </Container>
+  )
 }
 
 const Container = styled.div`
@@ -86,7 +87,7 @@ const Container = styled.div`
   gap: 0.1rem;
   overflow: hidden;
   @media screen and (min-height: 720px) and (max-height: 1080px) {
-    grid-auto-rows: 13% 75% 12%
+    grid-auto-rows: 13% 75% 12%;
   }
   .chat-header {
     display: flex;
@@ -98,7 +99,11 @@ const Container = styled.div`
       display: flex;
       align-items: center;
       gap: 1rem;
-      .username { h3 { color: white } }
+      .username {
+        h3 {
+          color: white;
+        }
+      }
     }
   }
 `
